@@ -29,6 +29,7 @@ export interface NexusGenInputs {
     bio?: string | null; // String
     firstName?: string | null; // String
     lastName?: string | null; // String
+    profileImageUrl?: string | null; // String
   }
   UpdateCurrentUserInformationInput: { // input type
     updatableCurrentUserInformation: NexusGenInputs['UpdatableCurrentUserInformationInput']; // UpdatableCurrentUserInformationInput!
@@ -72,9 +73,8 @@ export interface NexusGenRootTypes {
     updatedAt?: any | null; // Date
   }
   Query: {};
-  RegularUser: {};
   UpdateCurrentUserInformationPayload: { // root type
-    user?: NexusGenRootTypes['RegularUser'] | null; // RegularUser
+    user?: NexusGenRootTypes['CurrentUser'] | null; // CurrentUser
     userErrors?: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
   UpdateCurrentUserPostContentPayload: { // root type
@@ -90,9 +90,11 @@ export interface NexusGenRootTypes {
     message: string; // String!
   }
   UserPosts: {};
-  UserProfile: {};
-  Node: NexusGenRootTypes['CurrentUser'] | NexusGenRootTypes['Post'] | NexusGenRootTypes['RegularUser'];
-  User: NexusGenRootTypes['CurrentUser'] | NexusGenRootTypes['RegularUser'];
+  UserProfile: { // root type
+    profileImageUrl?: string | null; // String
+  }
+  Node: NexusGenRootTypes['CurrentUser'] | NexusGenRootTypes['Post'];
+  User: NexusGenRootTypes['CurrentUser'];
   String: string;
   Int: number;
   Float: number;
@@ -144,7 +146,7 @@ export interface NexusGenFieldTypes {
     updateCurrentUserPostTitle: NexusGenRootTypes['UpdateCurrentUserPostTitlePayload']; // UpdateCurrentUserPostTitlePayload!
   }
   Post: { // field return type
-    author: NexusGenRootTypes['RegularUser']; // RegularUser!
+    author: NexusGenRootTypes['User']; // User!
     content: any | null; // JSON
     createdAt: any; // Date!
     id: string; // ID!
@@ -156,17 +158,9 @@ export interface NexusGenFieldTypes {
     getCurrentUser: NexusGenRootTypes['GetCurrentUserPayload']; // GetCurrentUserPayload!
     getCurrentUserPost: NexusGenRootTypes['GetCurrentUserPostPayload']; // GetCurrentUserPostPayload!
   }
-  RegularUser: { // field return type
-    email: any; // Email!
-    firstName: string; // String!
-    id: string; // ID!
-    lastName: string; // String!
-    posts: NexusGenRootTypes['UserPosts']; // UserPosts!
-    profile: NexusGenRootTypes['UserProfile']; // UserProfile!
-  }
   UpdateCurrentUserInformationPayload: { // field return type
     successful: boolean; // Boolean!
-    user: NexusGenRootTypes['RegularUser'] | null; // RegularUser
+    user: NexusGenRootTypes['CurrentUser'] | null; // CurrentUser
     userErrors: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
   UpdateCurrentUserPostContentPayload: { // field return type
@@ -189,6 +183,7 @@ export interface NexusGenFieldTypes {
   }
   UserProfile: { // field return type
     bio: string; // String!
+    profileImageUrl: string | null; // String
   }
   Node: { // field return type
     id: string; // ID!
@@ -224,11 +219,6 @@ export interface NexusGenArgTypes {
       input: NexusGenInputs['GetCurrentUserPostInput']; // GetCurrentUserPostInput!
     }
   }
-  RegularUser: {
-    posts: { // args
-      input?: NexusGenInputs['UserPostsInput'] | null; // UserPostsInput
-    }
-  }
   User: {
     posts: { // args
       input?: NexusGenInputs['UserPostsInput'] | null; // UserPostsInput
@@ -237,13 +227,13 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
-  Node: "CurrentUser" | "Post" | "RegularUser"
-  User: "CurrentUser" | "RegularUser"
+  Node: "CurrentUser" | "Post"
+  User: "CurrentUser"
 }
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser" | "GetCurrentUserPayload" | "GetCurrentUserPostPayload" | "Mutation" | "Post" | "Query" | "RegularUser" | "UpdateCurrentUserInformationPayload" | "UpdateCurrentUserPostContentPayload" | "UpdateCurrentUserPostTitlePayload" | "UserError" | "UserPosts" | "UserProfile";
+export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser" | "GetCurrentUserPayload" | "GetCurrentUserPostPayload" | "Mutation" | "Post" | "Query" | "UpdateCurrentUserInformationPayload" | "UpdateCurrentUserPostContentPayload" | "UpdateCurrentUserPostTitlePayload" | "UserError" | "UserPosts" | "UserProfile";
 
 export type NexusGenInputNames = "GetCurrentUserPostInput" | "UpdatableCurrentUserInformationInput" | "UpdateCurrentUserInformationInput" | "UpdateCurrentUserPostContentInput" | "UpdateCurrentUserPostTitleInput" | "UserPostsInput";
 

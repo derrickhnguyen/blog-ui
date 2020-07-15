@@ -26,6 +26,7 @@ export const getCurrentUserQuery = gql`
         email
         profile {
           bio
+          profileImageUrl
         }
       }
       successful

@@ -20,6 +20,7 @@ const updateCurrentUserInformationInformationMutation = gql`
         id
         profile {
           bio
+          profileImageUrl
         }
       }
       successful
