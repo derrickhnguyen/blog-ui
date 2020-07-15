@@ -2,28 +2,18 @@ import React from 'react'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChevronLeft,
-  faChevronRight
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useGetCurrentUserPosts } from '@hooks'
 
+const LIMIT = 12
+
 const CurrentUserPosts = () => {
-  const { results } = useGetCurrentUserPosts()
+  const [limit, setLimit] = React.useState<number>(LIMIT)
+  const { results, totalResults } = useGetCurrentUserPosts({ limit })
 
   return (
     <>
-      <div className="flex justify-between items-center content-center mb-2">
-        <h2 className="text-2xl underline">Blogs</h2>
-        <div>
-          <button className="mr-1 hover:bg-gray-200 py-1 px-2">
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
-          <button className="hover:bg-gray-200 py-1 px-2">
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
-        </div>
-      </div>
+      <h2 className="text-2xl underline mb-2">Blogs</h2>
       <div className="flex flex-wrap">
         {results.map(({ createdAt, title, id }) => (
           <Link key={id} href="/post">
@@ -42,6 +32,14 @@ const CurrentUserPosts = () => {
           </Link>
         ))}
       </div>
+      {limit <= totalResults && (
+        <button
+          className="border border-solid border-gray-400 m-2 bg-white hover:bg-gray-200 hover:opacity-75 focus:outline-none focus:shadow-outline"
+          onClick={() => setLimit(limit + LIMIT)}
+        >
+          <FontAwesomeIcon icon={faChevronDown} />
+        </button>
+      )}
     </>
   )
 }

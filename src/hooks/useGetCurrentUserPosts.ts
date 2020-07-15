@@ -45,7 +45,7 @@ export const useGetCurrentUserPosts = (
 
   const { data, loading } = useQuery<GetCurrentUserPostsDataType>(
     getCurrentUserPosts,
-    { variables: { limit, after } }
+    { variables: { limit, after }, fetchPolicy: 'cache-and-network' }
   )
   const { currentUser } = data?.getCurrentUser || {}
   const { posts } = currentUser || {}
