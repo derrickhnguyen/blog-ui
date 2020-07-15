@@ -56,13 +56,13 @@ const Bio = ({ currentUser }: BioProps) => {
                   variables: {
                     input: {
                       updatableCurrentUserInformation: {
-                        bio
+                        bio: bio.trim()
                       }
                     }
                   }
                 })
-                setIsEditBioInputOpen(false)
               }
+              setIsEditBioInputOpen(false)
             }}
           />
           <span
