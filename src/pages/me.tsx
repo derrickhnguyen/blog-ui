@@ -1,6 +1,12 @@
 import React from 'react'
 import Router from 'next/router'
 import { format } from 'date-fns'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faEdit,
+  faChevronLeft,
+  faChevronRight
+} from '@fortawesome/free-solid-svg-icons'
 import { Layout } from '@components'
 import {
   useAuth,
@@ -30,69 +36,65 @@ const AboutSection = ({ currentUser }: AboutSectionProps) => {
         src="https://source.unsplash.com/random/300x300"
         className="mb-5 m-auto"
       />
-      <div>
-        <h2 className="text-xl mb-2 underline">
-          About {firstName} {lastName}
-        </h2>
-        {bio && !isEditBioInputOpen && (
-          <button
-            className="text-left w-full hover:border-dashed focus:outline-none focus:shadow-outline hover:border-2 hover:border-black"
-            onClick={() => setIsEditBioInputOpen(true)}
-          >
-            <p>{bio}</p>
-          </button>
-        )}
+      <h2 className="text-xl mb-2 underline text-center lg:text-left">
+        {firstName} {lastName}
+      </h2>
+      {bio && !isEditBioInputOpen && (
+        <button
+          className="text-center lg:text-left w-full hover:border-dashed focus:outline-none focus:shadow-outline hover:border-2 hover:border-black"
+          onClick={() => setIsEditBioInputOpen(true)}
+        >
+          <p>{bio}</p>
+        </button>
+      )}
+      {isEditBioInputOpen && (
+        <div className="flex flex-col">
+          <textarea
+            maxLength={255}
+            rows={4}
+            autoFocus
+            className="w-full flex-wrap p-2"
+            value={bio}
+            onBlur={() => setIsEditBioInputOpen(false)}
+            onChange={e => {
+              setBio(e.target.value)
+            }}
+            onKeyDown={e => {
+              if (e.keyCode !== ENTER_KEY) {
+                return
+              }
 
-        {isEditBioInputOpen && (
-          <div className="flex flex-col">
-            <textarea
-              maxLength={255}
-              rows={4}
-              autoFocus
-              className="w-full flex-wrap p-2"
-              value={bio}
-              onBlur={() => setIsEditBioInputOpen(false)}
-              onChange={e => {
-                setBio(e.target.value)
-              }}
-              onKeyDown={e => {
-                if (e.keyCode !== ENTER_KEY) {
-                  return
-                }
-
-                if (bio) {
-                  updateCurrentUserInformation({
-                    variables: {
-                      input: {
-                        updatableCurrentUserInformation: {
-                          bio
-                        }
+              if (bio) {
+                updateCurrentUserInformation({
+                  variables: {
+                    input: {
+                      updatableCurrentUserInformation: {
+                        bio
                       }
                     }
-                  })
-                  setIsEditBioInputOpen(false)
-                }
-              }}
-            />
-            <span
-              className={`self-end text-gray-500 ${
-                bio.length >= 200 ? 'text-red-700' : ''
-              }`}
-            >
-              {bio.length} / 255
-            </span>
-          </div>
-        )}
-
-        {!bio && !isEditBioInputOpen && (
-          <button
-            className="text-gray-500"
-            onClick={() => setIsEditBioInputOpen(true)}
+                  }
+                })
+                setIsEditBioInputOpen(false)
+              }
+            }}
+          />
+          <span
+            className={`self-end text-gray-500 ${
+              bio.length >= 200 ? 'text-red-700' : ''
+            }`}
           >
-            Click here to add a bio.
-          </button>
-        )}
-      </div>
+            {bio.length} / 255
+          </span>
+        </div>
+      )}
+      {!bio && !isEditBioInputOpen && (
+        <button
+          className="hover:text-gray-500 text-gray-700 lg:text-left"
+          onClick={() => setIsEditBioInputOpen(true)}
+        >
+          Click here to add a bio <FontAwesomeIcon icon={faEdit} />
+        </button>
+      )}
     </section>
   )
 }
@@ -101,13 +103,23 @@ const PostSection = () => {
   const { results } = useGetCurrentUserPosts()
 
   return (
-    <div className="bg-white flex flex-col w-full p-6 shadow-2xl">
-      <h2 className="text-2xl mb-2 underline">Blogs</h2>
+    <section className="bg-white flex flex-col w-full p-6 shadow-2xl">
+      <div className="flex justify-between items-center content-center mb-2">
+        <h2 className="text-2xl underline">Blogs</h2>
+        <div>
+          <button className="mr-1 hover:bg-gray-200 py-1 px-2">
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+          <button className="hover:bg-gray-200 py-1 px-2">
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
+      </div>
       <div className="flex flex-wrap">
         {results.map(({ createdAt, title, id }) => (
           <button
             key={id}
-            className="flex flex-col bg-white border focus:outline-none focus:shadow-outline shadow-lg p-2 w-full lg:w-posts m-2 hover:bg-gray-100"
+            className="flex flex-col bg-white border focus:outline-none focus:shadow-outline shadow-lg p-4 w-full lg:w-posts m-2 hover:bg-gray-100"
           >
             {title && <h3 className="text-xl">{title}</h3>}
             {!title && (
@@ -119,7 +131,7 @@ const PostSection = () => {
           </button>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 
