@@ -45,11 +45,13 @@ export interface NexusGenInputs {
   UserPostsInput: { // input type
     after?: string | null; // String
     limit?: number | null; // Int
+    orderBy?: NexusGenEnums['UserPostsOrderByEnum'] | null; // UserPostsOrderByEnum
   }
 }
 
 export interface NexusGenEnums {
   ErrorCodeEnum: "BadRequest" | "Conflict" | "Forbidden" | "InternalServer" | "NotFound" | "Unauthorized"
+  UserPostsOrderByEnum: "CreatedAtAscending" | "CreatedAtDescending"
 }
 
 export interface NexusGenRootTypes {
@@ -113,6 +115,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UpdateCurrentUserPostTitleInput: NexusGenInputs['UpdateCurrentUserPostTitleInput'];
   UserPostsInput: NexusGenInputs['UserPostsInput'];
   ErrorCodeEnum: NexusGenEnums['ErrorCodeEnum'];
+  UserPostsOrderByEnum: NexusGenEnums['UserPostsOrderByEnum'];
 }
 
 export interface NexusGenFieldTypes {
@@ -237,7 +240,7 @@ export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser"
 
 export type NexusGenInputNames = "GetCurrentUserPostInput" | "UpdatableCurrentUserInformationInput" | "UpdateCurrentUserInformationInput" | "UpdateCurrentUserPostContentInput" | "UpdateCurrentUserPostTitleInput" | "UserPostsInput";
 
-export type NexusGenEnumNames = "ErrorCodeEnum";
+export type NexusGenEnumNames = "ErrorCodeEnum" | "UserPostsOrderByEnum";
 
 export type NexusGenInterfaceNames = "Node" | "User";
 
