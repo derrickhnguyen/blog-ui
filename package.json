@@ -26,7 +26,8 @@
     "next-with-apollo": "^5.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-facebook-login": "^4.1.1"
+    "react-facebook-login": "^4.1.1",
+    "react-spinners": "^0.9.0"
   },
   "devDependencies": {
     "@nexus/schema": "^0.14.0",
