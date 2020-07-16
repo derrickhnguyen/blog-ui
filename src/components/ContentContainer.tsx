@@ -5,7 +5,9 @@ interface ContentContainerProps {
 }
 
 const ContentContainer = ({ children }: ContentContainerProps) => (
-  <div className="flex min-h-content bg-teal-700 p-5">{children}</div>
+  <div className="flex min-h-content bg-teal-700 p-3 lg:p-2 lg:max-h-content">
+    {children}
+  </div>
 )
 
 export default ContentContainer

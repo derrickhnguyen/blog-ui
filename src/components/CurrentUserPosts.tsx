@@ -2,18 +2,31 @@ import React from 'react'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  faChevronLeft,
+  faChevronRight
+} from '@fortawesome/free-solid-svg-icons'
 import { useGetCurrentUserPosts } from '@hooks'
 
-const LIMIT = 12
+const LIMIT = 18
 
 const CurrentUserPosts = () => {
-  const [limit, setLimit] = React.useState<number>(LIMIT)
-  const { results, totalResults } = useGetCurrentUserPosts({ limit })
+  const [limit] = React.useState<number>(LIMIT)
+  const { results } = useGetCurrentUserPosts({ limit })
 
   return (
     <>
-      <h2 className="text-2xl underline mb-2">Blogs</h2>
+      <div className="flex justify-between content-center items-center">
+        <h2 className="text-2xl underline mb-2">Blogs</h2>
+        <div className="flex">
+          <button className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200">
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+          <button className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200">
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
+      </div>
       <div className="flex flex-wrap">
         {results.map(({ createdAt, title, id }) => (
           <Link key={id} href="/post">
@@ -26,20 +39,12 @@ const CurrentUserPosts = () => {
                 <h3 className="text-xl italic text-gray-700">No Title</h3>
               )}
               <div className="text-sm italic text-gray-700">
-                Created on: {format(new Date(createdAt), 'yyyy-MM-dd')}
+                Created on {format(new Date(createdAt), 'yyyy/MMM/dd')}
               </div>
             </a>
           </Link>
         ))}
       </div>
-      {limit <= totalResults && (
-        <button
-          className="border border-solid border-gray-400 m-2 bg-white hover:bg-gray-200 hover:opacity-75 focus:outline-none focus:shadow-outline"
-          onClick={() => setLimit(limit + LIMIT)}
-        >
-          <FontAwesomeIcon icon={faChevronDown} />
-        </button>
-      )}
     </>
   )
 }

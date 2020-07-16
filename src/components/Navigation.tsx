@@ -32,10 +32,10 @@ const Navigation = () => {
   )
 
   return (
-    <div className="flex justify-between bg-white text-black p-4 h-nav items-center content-center">
+    <div className="flex justify-between bg-white text-black p-4 h-nav">
       <Link href={`${isAuthorized ? '/me' : '/login'}`}>
         <a href={`${isAuthorized ? '/me' : '/login'}`}>
-          <h1 className="font-logo text-3xl uppercase">Blogr</h1>
+          <h1 className="font-logo text-2xl uppercase">Blogr</h1>
         </a>
       </Link>
       {isAuthorized && <AuthorizedRoutes />}
