@@ -1,7 +1,9 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import {
   CurrentUserType,
-  useUpdateCurrentUserInformationMutation
+  useUpdateCurrentUserProfileImageUrlMutation
 } from '@hooks'
 
 interface ProfileImageProps {
@@ -10,16 +12,23 @@ interface ProfileImageProps {
 
 const ProfileImage = ({ currentUser }: ProfileImageProps) => {
   const { firstName, lastName, profile } = currentUser || {}
+
   const [profileImageUrl, setProfileImageUrl] = React.useState(
     profile?.profileImageUrl
   )
+
+  const [profilePictureHovered, setProfilePictureHovered] = React.useState(
+    false
+  )
+
   const fileUploaderRef = React.useRef<HTMLInputElement>()
 
   const [
-    updateCurrentUserInformation
-  ] = useUpdateCurrentUserInformationMutation()
+    updateCurrentUserProfileImageUrl
+  ] = useUpdateCurrentUserProfileImageUrlMutation()
 
   const openProfilePictureUploader = () => fileUploaderRef.current.click()
+
   const uploadProfilePicture = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -37,12 +46,8 @@ const ProfileImage = ({ currentUser }: ProfileImageProps) => {
     )
     const file = await res.json()
 
-    await updateCurrentUserInformation({
-      variables: {
-        input: {
-          updatableCurrentUserInformation: { profileImageUrl: file.secure_url }
-        }
-      }
+    await updateCurrentUserProfileImageUrl({
+      variables: { input: { profileImageUrl: file.secure_url } }
     })
 
     setProfileImageUrl(file.secure_url)
@@ -52,21 +57,30 @@ const ProfileImage = ({ currentUser }: ProfileImageProps) => {
     <>
       {profileImageUrl && (
         <button
-          className="mb-5 flex mx-auto focus:outline-none focus:shadow-outline hover:opacity-75"
+          className="inline-block relative mb-5 mx-auto hover:opacity-75 focus:outline-none focus:shadow-outline"
           onClick={openProfilePictureUploader}
+          onMouseOver={() => setProfilePictureHovered(true)}
+          onFocus={() => () => setProfilePictureHovered(true)}
+          onMouseOut={() => setProfilePictureHovered(false)}
+          onBlur={() => setProfilePictureHovered(false)}
         >
           <img alt={`${firstName} ${lastName}`} src={profileImageUrl} />
+          <FontAwesomeIcon
+            size="sm"
+            className={`${
+              profilePictureHovered ? '' : 'hidden'
+            } absolute top-0 right-0 transform translate-y-1 -translate-x-1  opacity-50`}
+            icon={faEdit}
+          />
         </button>
       )}
       {!profileImageUrl && (
-        <div>
-          <button
-            className="mb-5 hover:bg-gray-100 hover:text-gray-600 text-gray-700 flex h-56 w-auto p-3 mx-auto justify-center text-center items-center content-center border border-gray-700 border-solid focus:outline-none focus:shadow-outline"
-            onClick={openProfilePictureUploader}
-          >
-            Click here to upload a profile picture
-          </button>
-        </div>
+        <button
+          className="mb-5 hover:bg-gray-100 hover:text-gray-600 text-gray-700 flex h-56 w-auto p-3 mx-auto justify-center text-center items-center content-center border border-gray-700 border-solid focus:outline-none focus:shadow-outline"
+          onClick={openProfilePictureUploader}
+        >
+          Click here to upload a profile picture
+        </button>
       )}
       <input
         ref={fileUploaderRef}

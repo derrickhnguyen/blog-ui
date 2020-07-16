@@ -6,6 +6,7 @@ import FacebookLoginButton, {
   FacebookResponseType
 } from './FacebookLoginButton'
 import Layout from './Layout'
+import Modal from './Modal'
 import Navigation from './Navigation'
 import ProfileImage from './ProfileImage'
 
@@ -16,6 +17,7 @@ export {
   CurrentUserPosts,
   FacebookLoginButton,
   Layout,
+  Modal,
   Navigation,
   ProfileImage
 }

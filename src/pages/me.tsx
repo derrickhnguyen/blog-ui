@@ -18,12 +18,12 @@ const Me = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col lg:flex-row lg:items-start lg:content-start mx-auto lg:w-9/12">
-        <section className="bg-white flex flex-col p-6 lg:w-2/6 shadow-2xl lg:mr-3 lg:mb-0 mb-3">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:content-start mx-auto max-h-full">
+        <section className="bg-white flex flex-col p-4 lg:w-1/5 shadow-2xl mb-4 lg:mr-2 lg:mb-0 lg:h-full lg:max-h-full overflow-auto">
           <ProfileImage currentUser={currentUser} />
           <Bio currentUser={currentUser} />
         </section>
-        <section className="bg-white flex flex-col w-full p-6 shadow-2xl">
+        <section className="bg-white flex flex-col w-full p-4 shadow-2xl lg:h-full">
           <CurrentUserPosts />
         </section>
       </div>

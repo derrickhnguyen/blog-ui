@@ -23,15 +23,16 @@ const Bio = ({ currentUser }: BioProps) => {
 
   return (
     <>
-      <h2 className="text-xl mb-2 underline text-center lg:text-left">
+      <h2 className="text-xl mb-2 text-center lg:text-left">
         {firstName} {lastName}
       </h2>
+      <h2 className="font-semibold underline">About</h2>
       {bio && !isEditBioInputOpen && (
         <button
-          className="text-center lg:text-left w-full hover:border-dashed focus:outline-none focus:shadow-outline hover:border-2 hover:border-black"
+          className="w-full border border-transparent focus:outline-none focus:shadow-outline hover:opacity-50 hover:border hover:border-solid hover:border-gray-800"
           onClick={() => setIsEditBioInputOpen(true)}
         >
-          <p>{bio}</p>
+          <p className="text-left text-sm">{bio}</p>
         </button>
       )}
       {isEditBioInputOpen && (
@@ -40,7 +41,7 @@ const Bio = ({ currentUser }: BioProps) => {
             maxLength={255}
             rows={4}
             autoFocus
-            className="w-full flex-wrap p-2"
+            className="w-full flex-wrap p-2 text-sm"
             value={bio}
             onBlur={() => setIsEditBioInputOpen(false)}
             onChange={e => {
@@ -76,7 +77,7 @@ const Bio = ({ currentUser }: BioProps) => {
       )}
       {!bio && !isEditBioInputOpen && (
         <button
-          className="hover:text-gray-500 text-gray-700 lg:text-left"
+          className="hover:text-gray-500 text-gray-700 text-left text-sm"
           onClick={() => setIsEditBioInputOpen(true)}
         >
           Click here to add a bio <FontAwesomeIcon icon={faEdit} />

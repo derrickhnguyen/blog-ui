@@ -16,15 +16,16 @@ const Login = () => {
   }, [isAuthorized, isQueryLoading])
 
   const onFacebookResponse = async ({ accessToken }: FacebookResponseType) => {
+    setIsLoading(true)
     const resp = await fetch(
       `http://localhost:8000/auth/facebook/token?access_token=${accessToken}`
     )
     const { success } = await resp.json()
 
     if (success) {
-      setIsLoading(true)
       logIn()
     }
+    setIsLoading(false)
   }
 
   return (
