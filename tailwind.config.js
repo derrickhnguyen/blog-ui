@@ -19,7 +19,8 @@ module.exports = {
   variants: {
     borderWidth: ['responsive', 'hover'],
     borderStyle: ['responsive', 'hover'],
-    display: ['responsive', 'hover']
+    display: ['responsive', 'hover'],
+    opacity: ['responsive', 'hover', 'focus', 'disabled']
   },
   plugins: []
 }
