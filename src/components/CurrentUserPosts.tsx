@@ -11,18 +11,38 @@ import { useGetCurrentUserPosts } from '@hooks'
 const LIMIT = 18
 
 const CurrentUserPosts = () => {
-  const [limit] = React.useState<number>(LIMIT)
-  const { results } = useGetCurrentUserPosts({ limit })
+  const [before, setBefore] = React.useState<string>()
+  const [after, setAfter] = React.useState<string>()
+  const { results, paginationCursors } = useGetCurrentUserPosts({
+    limit: LIMIT,
+    after,
+    before
+  })
+  const { startCursor, endCursor } = paginationCursors || {}
 
   return (
     <>
       <div className="flex justify-between content-center items-center">
         <h2 className="text-2xl underline mb-2">Blogs</h2>
         <div className="flex">
-          <button className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200">
+          <button
+            disabled={!startCursor}
+            className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200"
+            onClick={() => {
+              setBefore(startCursor)
+              setAfter(endCursor)
+            }}
+          >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
-          <button className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200">
+          <button
+            disabled={!endCursor}
+            className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200 disabled:opacity:50"
+            onClick={() => {
+              setBefore(undefined)
+              setAfter(endCursor)
+            }}
+          >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>

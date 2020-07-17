@@ -7,6 +7,7 @@ type GetCurrentUserPostsDataType = {
     currentUser: {
       posts: Omit<NexusGenFieldTypes['UserPosts'], 'results'> & {
         results: NexusGenFieldTypes['Post'][]
+        paginationCursors: NexusGenFieldTypes['PaginationCursors']
       }
     }
   }
@@ -27,6 +28,10 @@ const getCurrentUserPosts = gql`
             updatedAt
           }
           totalResults
+          paginationCursors {
+            startCursor
+            endCursor
+          }
         }
       }
     }
@@ -36,22 +41,23 @@ const getCurrentUserPosts = gql`
 interface UseGetCurrentUserPostsParams {
   limit?: number
   after?: string
+  before?: string
 }
 
 export const useGetCurrentUserPosts = (
   params?: UseGetCurrentUserPostsParams
 ) => {
-  const { limit = 12, after } = params || {}
+  const { limit = 12, after, before } = params || {}
 
   const { data, loading } = useQuery<GetCurrentUserPostsDataType>(
     getCurrentUserPosts,
-    { variables: { limit, after }, fetchPolicy: 'cache-and-network' }
+    { variables: { limit, after, before }, fetchPolicy: 'cache-and-network' }
   )
   const { currentUser } = data?.getCurrentUser || {}
   const { posts } = currentUser || {}
-  const { results = [], totalResults = 0 } = posts || {}
+  const { results = [], totalResults = 0, paginationCursors } = posts || {}
 
-  return { loading, results, totalResults }
+  return { loading, results, totalResults, paginationCursors }
 }
 
 export default useGetCurrentUserPosts

@@ -46,6 +46,7 @@ export interface NexusGenInputs {
   }
   UserPostsInput: { // input type
     after?: string | null; // String
+    before?: string | null; // String
     limit?: number | null; // Int
     orderBy?: NexusGenEnums['UserPostsOrderByEnum'] | null; // UserPostsOrderByEnum
   }
@@ -72,6 +73,7 @@ export interface NexusGenRootTypes {
     userErrors?: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
   Mutation: {};
+  PaginationCursors: {};
   Post: { // root type
     content?: any | null; // JSON
     updatedAt?: any | null; // Date
@@ -97,7 +99,9 @@ export interface NexusGenRootTypes {
     code: NexusGenEnums['ErrorCodeEnum']; // ErrorCodeEnum!
     message: string; // String!
   }
-  UserPosts: {};
+  UserPosts: { // root type
+    userErrors?: NexusGenRootTypes['UserError'][] | null; // [UserError!]
+  }
   UserProfile: { // root type
     profileImageUrl?: string | null; // String
   }
@@ -156,6 +160,10 @@ export interface NexusGenFieldTypes {
     updateCurrentUserPostTitle: NexusGenRootTypes['UpdateCurrentUserPostTitlePayload']; // UpdateCurrentUserPostTitlePayload!
     updateCurrentUserProfileImageUrl: NexusGenRootTypes['UpdateCurrentUserProfileImageUrlPayload']; // UpdateCurrentUserProfileImageUrlPayload!
   }
+  PaginationCursors: { // field return type
+    endCursor: string | null; // String
+    startCursor: string | null; // String
+  }
   Post: { // field return type
     author: NexusGenRootTypes['User']; // User!
     content: any | null; // JSON
@@ -194,8 +202,10 @@ export interface NexusGenFieldTypes {
     message: string; // String!
   }
   UserPosts: { // field return type
+    paginationCursors: NexusGenRootTypes['PaginationCursors']; // PaginationCursors!
     results: NexusGenRootTypes['Post'][]; // [Post!]!
     totalResults: number; // Int!
+    userErrors: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
   UserProfile: { // field return type
     bio: string; // String!
@@ -252,7 +262,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser" | "GetCurrentUserPayload" | "GetCurrentUserPostPayload" | "Mutation" | "Post" | "Query" | "UpdateCurrentUserInformationPayload" | "UpdateCurrentUserPostContentPayload" | "UpdateCurrentUserPostTitlePayload" | "UpdateCurrentUserProfileImageUrlPayload" | "UserError" | "UserPosts" | "UserProfile";
+export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser" | "GetCurrentUserPayload" | "GetCurrentUserPostPayload" | "Mutation" | "PaginationCursors" | "Post" | "Query" | "UpdateCurrentUserInformationPayload" | "UpdateCurrentUserPostContentPayload" | "UpdateCurrentUserPostTitlePayload" | "UpdateCurrentUserProfileImageUrlPayload" | "UserError" | "UserPosts" | "UserProfile";
 
 export type NexusGenInputNames = "GetCurrentUserPostInput" | "UpdatableCurrentUserInformationInput" | "UpdateCurrentUserInformationInput" | "UpdateCurrentUserPostContentInput" | "UpdateCurrentUserPostTitleInput" | "UpdateCurrentUserProfileImageUrlInput" | "UserPostsInput";
 

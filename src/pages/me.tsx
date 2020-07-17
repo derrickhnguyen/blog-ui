@@ -12,10 +12,6 @@ const Me = () => {
     }
   }, [isQueryLoading, isAuthorized])
 
-  if (isQueryLoading || !isAuthorized || !currentUser) {
-    return null
-  }
-
   return (
     <Layout>
       <div className="flex flex-col lg:flex-row lg:items-start lg:content-start mx-auto max-h-full">

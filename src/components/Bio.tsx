@@ -52,17 +52,15 @@ const Bio = ({ currentUser }: BioProps) => {
                 return
               }
 
-              if (bio) {
-                updateCurrentUserInformation({
-                  variables: {
-                    input: {
-                      updatableCurrentUserInformation: {
-                        bio: bio.trim()
-                      }
+              updateCurrentUserInformation({
+                variables: {
+                  input: {
+                    updatableCurrentUserInformation: {
+                      bio: bio.trim()
                     }
                   }
-                })
-              }
+                }
+              })
               setIsEditBioInputOpen(false)
             }}
           />
