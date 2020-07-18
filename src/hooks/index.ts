@@ -12,6 +12,7 @@ import {
   useUpdateCurrentUserInformationMutation
 } from './useUpdateCurrentUserInformationMutation'
 import { useUpdateCurrentUserProfileImageUrlMutation } from './useUpdateCurrentUserProfileImageUrlMutation'
+import { useUpdateCurrentUserSocialMediasMutation } from './useUpdateCurrentUserSocialMediasMutation'
 
 export {
   useAuth,
@@ -20,7 +21,8 @@ export {
   useLazyGetCurrentUserQuery,
   getCurrentUserQuery,
   useUpdateCurrentUserInformationMutation,
-  useUpdateCurrentUserProfileImageUrlMutation
+  useUpdateCurrentUserProfileImageUrlMutation,
+  useUpdateCurrentUserSocialMediasMutation
 }
 
 export type {

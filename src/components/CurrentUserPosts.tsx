@@ -27,7 +27,7 @@ const CurrentUserPosts = () => {
         <div className="flex">
           <button
             disabled={!startCursor}
-            className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200"
+            className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200 disabled:opacity-50"
             onClick={() => {
               setBefore(startCursor)
               setAfter(endCursor)
@@ -37,7 +37,7 @@ const CurrentUserPosts = () => {
           </button>
           <button
             disabled={!endCursor}
-            className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200 disabled:opacity:50"
+            className="pt-1 px-2 focus:outline-none focus:shadow-outline hover:bg-gray-200 disabled:opacity-50"
             onClick={() => {
               setBefore(undefined)
               setAfter(endCursor)

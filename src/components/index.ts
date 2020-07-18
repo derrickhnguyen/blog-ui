@@ -9,6 +9,7 @@ import Layout from './Layout'
 import Modal from './Modal'
 import Navigation from './Navigation'
 import ProfileImage from './ProfileImage'
+import SocialMedia from './SocialMedia'
 
 export {
   Bio,
@@ -19,6 +20,7 @@ export {
   Layout,
   Modal,
   Navigation,
-  ProfileImage
+  ProfileImage,
+  SocialMedia
 }
 export type { FacebookResponseType }

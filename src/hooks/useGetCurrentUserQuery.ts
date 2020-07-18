@@ -27,6 +27,9 @@ export const getCurrentUserQuery = gql`
         profile {
           bio
           profileImageUrl
+          instagramUrl
+          facebookUrl
+          twitterUrl
         }
       }
       successful

@@ -44,6 +44,11 @@ export interface NexusGenInputs {
   UpdateCurrentUserProfileImageUrlInput: { // input type
     profileImageUrl: string; // String!
   }
+  UpdateCurrentUserSocialMediasInput: { // input type
+    facebookUrl?: string | null; // String
+    instagramUrl?: string | null; // String
+    twitterUrl?: string | null; // String
+  }
   UserPostsInput: { // input type
     after?: string | null; // String
     before?: string | null; // String
@@ -95,6 +100,10 @@ export interface NexusGenRootTypes {
     user?: NexusGenRootTypes['CurrentUser'] | null; // CurrentUser
     userErrors?: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
+  UpdateCurrentUserSocialMediasPayload: { // root type
+    user?: NexusGenRootTypes['CurrentUser'] | null; // CurrentUser
+    userErrors?: NexusGenRootTypes['UserError'][] | null; // [UserError!]
+  }
   UserError: { // root type
     code: NexusGenEnums['ErrorCodeEnum']; // ErrorCodeEnum!
     message: string; // String!
@@ -103,7 +112,10 @@ export interface NexusGenRootTypes {
     userErrors?: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
   UserProfile: { // root type
+    facebookUrl?: string | null; // String
+    instagramUrl?: string | null; // String
     profileImageUrl?: string | null; // String
+    twitterUrl?: string | null; // String
   }
   Node: NexusGenRootTypes['CurrentUser'] | NexusGenRootTypes['Post'];
   User: NexusGenRootTypes['CurrentUser'];
@@ -124,6 +136,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   UpdateCurrentUserPostContentInput: NexusGenInputs['UpdateCurrentUserPostContentInput'];
   UpdateCurrentUserPostTitleInput: NexusGenInputs['UpdateCurrentUserPostTitleInput'];
   UpdateCurrentUserProfileImageUrlInput: NexusGenInputs['UpdateCurrentUserProfileImageUrlInput'];
+  UpdateCurrentUserSocialMediasInput: NexusGenInputs['UpdateCurrentUserSocialMediasInput'];
   UserPostsInput: NexusGenInputs['UserPostsInput'];
   ErrorCodeEnum: NexusGenEnums['ErrorCodeEnum'];
   UserPostsOrderByEnum: NexusGenEnums['UserPostsOrderByEnum'];
@@ -159,6 +172,7 @@ export interface NexusGenFieldTypes {
     updateCurrentUserPostContent: NexusGenRootTypes['UpdateCurrentUserPostContentPayload']; // UpdateCurrentUserPostContentPayload!
     updateCurrentUserPostTitle: NexusGenRootTypes['UpdateCurrentUserPostTitlePayload']; // UpdateCurrentUserPostTitlePayload!
     updateCurrentUserProfileImageUrl: NexusGenRootTypes['UpdateCurrentUserProfileImageUrlPayload']; // UpdateCurrentUserProfileImageUrlPayload!
+    updateCurrentUserSocialMedias: NexusGenRootTypes['UpdateCurrentUserSocialMediasPayload']; // UpdateCurrentUserSocialMediasPayload!
   }
   PaginationCursors: { // field return type
     endCursor: string | null; // String
@@ -197,6 +211,11 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['CurrentUser'] | null; // CurrentUser
     userErrors: NexusGenRootTypes['UserError'][] | null; // [UserError!]
   }
+  UpdateCurrentUserSocialMediasPayload: { // field return type
+    successful: boolean; // Boolean!
+    user: NexusGenRootTypes['CurrentUser'] | null; // CurrentUser
+    userErrors: NexusGenRootTypes['UserError'][] | null; // [UserError!]
+  }
   UserError: { // field return type
     code: NexusGenEnums['ErrorCodeEnum']; // ErrorCodeEnum!
     message: string; // String!
@@ -209,7 +228,10 @@ export interface NexusGenFieldTypes {
   }
   UserProfile: { // field return type
     bio: string; // String!
+    facebookUrl: string | null; // String
+    instagramUrl: string | null; // String
     profileImageUrl: string | null; // String
+    twitterUrl: string | null; // String
   }
   Node: { // field return type
     id: string; // ID!
@@ -242,6 +264,9 @@ export interface NexusGenArgTypes {
     updateCurrentUserProfileImageUrl: { // args
       input: NexusGenInputs['UpdateCurrentUserProfileImageUrlInput']; // UpdateCurrentUserProfileImageUrlInput!
     }
+    updateCurrentUserSocialMedias: { // args
+      input: NexusGenInputs['UpdateCurrentUserSocialMediasInput']; // UpdateCurrentUserSocialMediasInput!
+    }
   }
   Query: {
     getCurrentUserPost: { // args
@@ -262,9 +287,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser" | "GetCurrentUserPayload" | "GetCurrentUserPostPayload" | "Mutation" | "PaginationCursors" | "Post" | "Query" | "UpdateCurrentUserInformationPayload" | "UpdateCurrentUserPostContentPayload" | "UpdateCurrentUserPostTitlePayload" | "UpdateCurrentUserProfileImageUrlPayload" | "UserError" | "UserPosts" | "UserProfile";
+export type NexusGenObjectNames = "CreateCurrentUserPostPayload" | "CurrentUser" | "GetCurrentUserPayload" | "GetCurrentUserPostPayload" | "Mutation" | "PaginationCursors" | "Post" | "Query" | "UpdateCurrentUserInformationPayload" | "UpdateCurrentUserPostContentPayload" | "UpdateCurrentUserPostTitlePayload" | "UpdateCurrentUserProfileImageUrlPayload" | "UpdateCurrentUserSocialMediasPayload" | "UserError" | "UserPosts" | "UserProfile";
 
-export type NexusGenInputNames = "GetCurrentUserPostInput" | "UpdatableCurrentUserInformationInput" | "UpdateCurrentUserInformationInput" | "UpdateCurrentUserPostContentInput" | "UpdateCurrentUserPostTitleInput" | "UpdateCurrentUserProfileImageUrlInput" | "UserPostsInput";
+export type NexusGenInputNames = "GetCurrentUserPostInput" | "UpdatableCurrentUserInformationInput" | "UpdateCurrentUserInformationInput" | "UpdateCurrentUserPostContentInput" | "UpdateCurrentUserPostTitleInput" | "UpdateCurrentUserProfileImageUrlInput" | "UpdateCurrentUserSocialMediasInput" | "UserPostsInput";
 
 export type NexusGenEnumNames = "ErrorCodeEnum" | "UserPostsOrderByEnum";
 

@@ -22,8 +22,8 @@ const Bio = ({ currentUser }: BioProps) => {
   ] = useUpdateCurrentUserInformationMutation()
 
   return (
-    <>
-      <h2 className="text-xl mb-2 text-center lg:text-left">
+    <div className="flex flex-col">
+      <h2 className="text-xl text-center lg:text-left">
         {firstName} {lastName}
       </h2>
       <h2 className="font-semibold underline">About</h2>
@@ -75,13 +75,13 @@ const Bio = ({ currentUser }: BioProps) => {
       )}
       {!bio && !isEditBioInputOpen && (
         <button
-          className="hover:text-gray-500 text-gray-700 text-left text-sm"
+          className="hover:text-gray-500 text-gray-700 text-left text-xs"
           onClick={() => setIsEditBioInputOpen(true)}
         >
           Click here to add a bio <FontAwesomeIcon icon={faEdit} />
         </button>
       )}
-    </>
+    </div>
   )
 }
 
