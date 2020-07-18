@@ -21,7 +21,7 @@ const Modal = ({
   return (
     <ReactModal
       isOpen={isOpen}
-      className="flex justify-center items-center content-center p-2 h-1/2 w-3/4 lg:m-0 lg:h-modal lg:w-modal shadow bg-white absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2"
+      className="flex flex-col p-2 h-1/2 w-3/4 lg:m-0 lg:min-h-modal lg:w-modal shadow bg-white absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 overflow-y-auto"
       contentLabel={contentLabel}
       onRequestClose={onClose}
       style={{
