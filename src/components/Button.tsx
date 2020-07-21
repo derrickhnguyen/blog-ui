@@ -23,7 +23,6 @@ const Button = ({
     onClick={onClick}
     className={css(
       'rounded border-solid border focus:outline-none focus:shadow-outline focus:border-gray-300 text-white py-1 px-4 shadow uppercase',
-      'flex justify-center items-center content-center self-center',
       {
         'bg-teal-700': type === 'primary',
         'bg-orange-700': type === 'secondary',

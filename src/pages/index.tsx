@@ -1,18 +1,21 @@
 import React from 'react'
 import { NextPage } from 'next'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { useAuth } from '@hooks'
 
 const Home: NextPage = () => {
   const { isAuthorized, isQueryLoading } = useAuth()
+  const router = useRouter()
 
   React.useEffect(() => {
     if (!isQueryLoading && !isAuthorized) {
-      Router.push('/login')
-    } else if (!isQueryLoading && isAuthorized) {
-      Router.push('/me')
+      router.push('/login')
     }
-  }, [isQueryLoading, isAuthorized])
+
+    if (!isQueryLoading && isAuthorized) {
+      router.push('/me')
+    }
+  }, [isQueryLoading, isAuthorized, router])
 
   return null
 }

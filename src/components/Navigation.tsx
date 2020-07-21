@@ -1,11 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
-import { useAuth } from '@hooks'
+import Button from './Button'
+import { useAuth, useCreateCurrentUserPost } from '@hooks'
 
 const Navigation = () => {
   const { isAuthorized, isQueryLoading, logOut } = useAuth()
   const [isLogOutCalled, setIsLogOutCalled] = React.useState(false)
+  const [createCurrentUserPost] = useCreateCurrentUserPost()
 
   React.useEffect(() => {
     if (isLogOutCalled && !isAuthorized) {
@@ -17,8 +19,18 @@ const Navigation = () => {
     return null
   }
 
+  const onCreateCurrentUserPost = async () => {
+    const { data } = await createCurrentUserPost()
+    const { post } = data.createCurrentUserPost
+
+    Router.push(`/posts/${post.id}`)
+  }
+
   const AuthorizedRoutes = () => (
     <nav className="flex h-full">
+      <Button type="secondary" onClick={() => onCreateCurrentUserPost()}>
+        Create
+      </Button>
       <button
         onClick={() => {
           logOut()

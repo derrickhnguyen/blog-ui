@@ -72,7 +72,7 @@ const EditSocialMediasModal = ({
             />
           </div>
         </div>
-        <div className="flex w-full m-3">
+        <div className="flex m-3">
           <Button
             type="secondary"
             className="mr-2"

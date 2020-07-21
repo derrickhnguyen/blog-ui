@@ -9,13 +9,16 @@ const Login = () => {
   const { isAuthorized, isQueryLoading, logIn } = useAuth()
   const [isLoading, setIsLoading] = React.useState(false)
 
-  React.useEffect(() => {
-    if (isAuthorized && !isQueryLoading) {
-      Router.push('/me')
-    }
-  }, [isAuthorized, isQueryLoading])
+  if (isAuthorized && !isQueryLoading) {
+    Router.push('/me')
+    return null
+  }
 
   const onFacebookResponse = async ({ accessToken }: FacebookResponseType) => {
+    if (!accessToken) {
+      return
+    }
+
     setIsLoading(true)
     const resp = await fetch(
       `http://localhost:8000/auth/facebook/token?access_token=${accessToken}`

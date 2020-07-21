@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import {
   Bio,
   CurrentUserPosts,
@@ -11,12 +11,13 @@ import { useAuth } from '@hooks'
 
 const Me = () => {
   const { currentUser, isAuthorized, isQueryLoading } = useAuth()
+  const router = useRouter()
 
   React.useEffect(() => {
     if (!isQueryLoading && !isAuthorized) {
-      Router.push('/login')
+      router.push('/login')
     }
-  }, [isQueryLoading, isAuthorized])
+  }, [router, isQueryLoading, isAuthorized])
 
   if (isQueryLoading || !currentUser) {
     return null
@@ -24,7 +25,7 @@ const Me = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col lg:flex-row lg:items-start lg:content-start mx-auto max-h-full">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:content-start w-full mx-auto max-h-full">
         <section className="bg-white flex flex-col p-4 lg:w-1/5 shadow-2xl mb-4 lg:mr-2 lg:mb-0 lg:max-h-full overflow-auto">
           <ProfileImage currentUser={currentUser} />
           <SocialMedia currentUser={currentUser} />
